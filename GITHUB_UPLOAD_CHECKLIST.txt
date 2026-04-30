@@ -1,0 +1,47 @@
+DrivePK GitHub Pages Upload Checklist
+
+Upload these folders from C:\xampp\htdocs\drivedpk to the root of your GitHub repository:
+
+1. css
+2. js
+3. images
+4. php
+
+Also keep these files in the repository root:
+
+1. index.html
+2. cars.html
+3. car-detail.html
+4. booking.html
+5. contact.html
+6. login.html
+7. register.html
+8. dashboard.html
+9. admin.html
+10. database.sql
+11. owner_request_migration.sql
+12. LIVE_SETUP_STEPS.txt
+
+Very important:
+
+- Do not upload only the files inside css, js, or images. Upload the full folders.
+- Folder names must be lowercase: css, js, images, php.
+- The live site expects these exact paths:
+  css/style.css
+  css/responsive.css
+  js/main.js
+  images/corolla.jpg
+- GitHub Pages can show HTML, CSS, JS, and images.
+- GitHub Pages cannot run PHP or MySQL. Login, booking, admin, owner upload, and database features need PHP hosting.
+
+After uploading to GitHub:
+
+1. Wait 1-2 minutes.
+2. Open https://ahmed786m.github.io/DerivePk/ in a private/incognito mobile browser tab.
+3. If it still looks like plain text, check these direct links:
+   https://ahmed786m.github.io/DerivePk/css/style.css
+   https://ahmed786m.github.io/DerivePk/css/responsive.css
+   https://ahmed786m.github.io/DerivePk/js/main.js
+   https://ahmed786m.github.io/DerivePk/images/corolla.jpg
+
+If any direct link says 404, that folder/file was not uploaded to the repository root.

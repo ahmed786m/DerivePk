@@ -1,0 +1,43 @@
+DrivePK XAMPP setup
+===================
+
+1. Copy the drivedpk folder to:
+   C:\xampp\htdocs\drivedpk
+
+2. Start XAMPP Control Panel.
+   Start Apache and MySQL.
+
+3. Open phpMyAdmin:
+   http://localhost/phpmyadmin
+
+4. If you already imported an old drivepk database, delete/drop it first.
+   Then import:
+   C:\xampp\htdocs\drivedpk\database.sql
+
+5. Open the website:
+   http://localhost/drivedpk/
+
+6. Test logins:
+   Admin:
+     Login type: Admin
+     Admin ID: drivepk-admin
+     Password: Admin@123
+
+   Sample car owner:
+     Login type: Car Owner
+     Email: owner@drivepk.com
+     Password: Owner@123
+
+7. To allow another device on the same Wi-Fi:
+   Find your computer IP with ipconfig.
+   Open Windows Firewall for Apache if asked.
+   Other devices can visit:
+   http://YOUR-IP-ADDRESS/drivedpk/
+
+8. To make it public on the internet:
+   Use a real hosting account with PHP and MySQL.
+   Upload the files to public_html.
+   Import database.sql in hosting phpMyAdmin.
+   Edit php/db.php with the hosting database name, user, and password.
+
+Do not keep Admin@123 on a public server. Change the admin password before real use.

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Cars — DrivePK</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">DRIVE<span>PK</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cars.html" class="active">Cars</a></li>
+      <li><a href="booking.html">Book Now</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="login.html" class="btn-outline">Login</a>
+      <a href="register.html" class="btn-primary">Register</a>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="cars.html">Cars</a>
+  <a href="booking.html">Book Now</a>
+  <a href="contact.html">Contact</a>
+  <a href="login.html">Login</a>
+  <a href="register.html">Register</a>
+</div>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>OUR FLEET</h1>
+    <p>Choose from 50+ premium vehicles across all categories</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="cars-page-grid">
+
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-title">Car Type</div>
+        <div class="sidebar-option"><input type="checkbox" id="sedan" name="type" value="sedan"><label for="sedan">Sedan</label></div>
+        <div class="sidebar-option"><input type="checkbox" id="suv" name="type" value="suv"><label for="suv">SUV</label></div>
+        <div class="sidebar-option"><input type="checkbox" id="hatchback" name="type" value="hatchback"><label for="hatchback">Hatchback</label></div>
+        <div class="sidebar-option"><input type="checkbox" id="luxury" name="type" value="luxury"><label for="luxury">Luxury</label></div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">Fuel Type</div>
+        <div class="sidebar-option"><input type="checkbox" id="petrol"><label for="petrol">Petrol</label></div>
+        <div class="sidebar-option"><input type="checkbox" id="diesel"><label for="diesel">Diesel</label></div>
+        <div class="sidebar-option"><input type="checkbox" id="hybrid"><label for="hybrid">Hybrid</label></div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">Transmission</div>
+        <div class="sidebar-option"><input type="checkbox" id="auto"><label for="auto">Automatic</label></div>
+        <div class="sidebar-option"><input type="checkbox" id="manual"><label for="manual">Manual</label></div>
+        <div class="sidebar-option"><input type="checkbox" id="cvt"><label for="cvt">CVT</label></div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">Max Price / Day</div>
+        <input type="range" class="price-range" id="priceRange" min="5000" max="25000" value="25000" step="500" oninput="updatePrice(this.value)">
+        <div class="price-labels">
+          <span>Rs. 5,000</span>
+          <span id="priceLabel">Rs. 25,000</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">Availability</div>
+        <div class="sidebar-option"><input type="radio" id="all" name="avail" value="all" checked><label for="all">All Cars</label></div>
+        <div class="sidebar-option"><input type="radio" id="available" name="avail" value="available"><label for="available">Available Only</label></div>
+      </div>
+
+      <button class="btn-primary" style="width:100%; margin-top:8px;" onclick="applyFilters()">Apply Filters</button>
+      <button class="btn-outline" style="width:100%; margin-top:8px;" onclick="resetFilters()">Reset</button>
+    </aside>
+
+    <div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+        <div style="font-size:14px; color:var(--gray);">Showing <strong id="carCount" style="color:var(--white);">6</strong> cars</div>
+        <select onchange="sortCars(this.value)" style="background:var(--card); border:1px solid var(--border); color:var(--white); padding:8px 14px; font-family:var(--font-body); font-size:14px; outline:none; cursor:pointer;">
+          <option value="default">Sort: Default</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="name">Name A-Z</option>
+        </select>
+      </div>
+
+      <div class="cars-grid" id="carsGrid">
+
+        <div class="car-card" data-category="sedan" data-price="8000" data-status="available">
+          <div class="car-card-image">
+            <img src="images/corolla.jpg" alt="Toyota Corolla" loading="lazy">
+            <div class="car-card-badge"><span class="badge badge-available">Available</span></div>
+          </div>
+          <div class="car-card-body">
+            <div class="car-brand">Toyota</div>
+            <div class="car-name">Corolla</div>
+            <div class="car-specs">
+              <div class="car-spec"><span class="car-spec-icon">⛽</span> Petrol</div>
+              <div class="car-spec"><span class="car-spec-icon">⚙️</span> Auto</div>
+              <div class="car-spec"><span class="car-spec-icon">👥</span> 5 Seats</div>
+            </div>
+            <div class="car-card-footer">
+              <div class="car-price">Rs. 8,000 <span>/ day</span></div>
+              <a href="car-detail.html?id=1" class="btn-primary">Rent Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="car-card" data-category="sedan" data-price="9500" data-status="available">
+          <div class="car-card-image">
+            <img src="images/civic.jpg" alt="Honda Civic" loading="lazy">
+            <div class="car-card-badge"><span class="badge badge-available">Available</span></div>
+          </div>
+          <div class="car-card-body">
+            <div class="car-brand">Honda</div>
+            <div class="car-name">Civic</div>
+            <div class="car-specs">
+              <div class="car-spec"><span class="car-spec-icon">⛽</span> Petrol</div>
+              <div class="car-spec"><span class="car-spec-icon">⚙️</span> Auto</div>
+              <div class="car-spec"><span class="car-spec-icon">👥</span> 5 Seats</div>
+            </div>
+            <div class="car-card-footer">
+              <div class="car-price">Rs. 9,500 <span>/ day</span></div>
+              <a href="car-detail.html?id=2" class="btn-primary">Rent Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="car-card" data-category="suv" data-price="18000" data-status="available">
+          <div class="car-card-image">
+            <img src="images/fortuner.jpg" alt="Toyota Fortuner" loading="lazy">
+            <div class="car-card-badge"><span class="badge badge-featured">Popular</span></div>
+          </div>
+          <div class="car-card-body">
+            <div class="car-brand">Toyota</div>
+            <div class="car-name">Fortuner</div>
+            <div class="car-specs">
+              <div class="car-spec"><span class="car-spec-icon">⛽</span> Diesel</div>
+              <div class="car-spec"><span class="car-spec-icon">⚙️</span> Auto</div>
+              <div class="car-spec"><span class="car-spec-icon">👥</span> 7 Seats</div>
+            </div>
+            <div class="car-card-footer">
+              <div class="car-price">Rs. 18,000 <span>/ day</span></div>
+              <a href="car-detail.html?id=3" class="btn-primary">Rent Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="car-card" data-category="hatchback" data-price="5500" data-status="available">
+          <div class="car-card-image">
+            <img src="images/cultus.jpg" alt="Suzuki Cultus" loading="lazy">
+            <div class="car-card-badge"><span class="badge badge-available">Available</span></div>
+          </div>
+          <div class="car-card-body">
+            <div class="car-brand">Suzuki</div>
+            <div class="car-name">Cultus</div>
+            <div class="car-specs">
+              <div class="car-spec"><span class="car-spec-icon">⛽</span> Petrol</div>
+              <div class="car-spec"><span class="car-spec-icon">⚙️</span> Manual</div>
+              <div class="car-spec"><span class="car-spec-icon">👥</span> 5 Seats</div>
+            </div>
+            <div class="car-card-footer">
+              <div class="car-price">Rs. 5,500 <span>/ day</span></div>
+              <a href="car-detail.html?id=4" class="btn-primary">Rent Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="car-card" data-category="suv" data-price="12000" data-status="available">
+          <div class="car-card-image">
+            <img src="images/brv.jpg" alt="Honda BRV" loading="lazy">
+            <div class="car-card-badge"><span class="badge badge-available">Available</span></div>
+          </div>
+          <div class="car-card-body">
+            <div class="car-brand">Honda</div>
+            <div class="car-name">BR-V</div>
+            <div class="car-specs">
+              <div class="car-spec"><span class="car-spec-icon">⛽</span> Petrol</div>
+              <div class="car-spec"><span class="car-spec-icon">⚙️</span> CVT</div>
+              <div class="car-spec"><span class="car-spec-icon">👥</span> 7 Seats</div>
+            </div>
+            <div class="car-card-footer">
+              <div class="car-price">Rs. 12,000 <span>/ day</span></div>
+              <a href="car-detail.html?id=5" class="btn-primary">Rent Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="car-card" data-category="suv" data-price="15000" data-status="booked">
+          <div class="car-card-image">
+            <img src="images/tucson.jpg" alt="Hyundai Tucson" loading="lazy">
+            <div class="car-card-badge"><span class="badge badge-booked">Booked</span></div>
+          </div>
+          <div class="car-card-body">
+            <div class="car-brand">Hyundai</div>
+            <div class="car-name">Tucson</div>
+            <div class="car-specs">
+              <div class="car-spec"><span class="car-spec-icon">⚡</span> Hybrid</div>
+              <div class="car-spec"><span class="car-spec-icon">⚙️</span> Auto</div>
+              <div class="car-spec"><span class="car-spec-icon">👥</span> 5 Seats</div>
+            </div>
+            <div class="car-card-footer">
+              <div class="car-price">Rs. 15,000 <span>/ day</span></div>
+              <a href="car-detail.html?id=6" class="btn-outline">View Details</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom" style="border-top: 1px solid var(--border); padding-top: 28px;">
+      <span>© 2025 DrivePK. All rights reserved.</span>
+      <a href="index.html" style="color:var(--gray);">Back to Home</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/filter.js"></script>
+<script src="js/cars.js"></script>
+</body>
+</html>

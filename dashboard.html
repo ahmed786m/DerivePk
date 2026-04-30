@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Dashboard — DrivePK</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-guard="customer,owner">
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">DRIVE<span>PK</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cars.html">Cars</a></li>
+      <li><a href="booking.html">Book Now</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="php/auth.php?action=logout" class="btn-outline">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<div class="dashboard-layout">
+
+  <aside class="sidebar-nav">
+    <div class="sidebar-nav-logo">DRIVE<span>PK</span></div>
+    <a href="dashboard.html" class="active">📋 My Bookings</a>
+    <a href="cars.html">🚗 Browse Cars</a>
+    <a href="booking.html">➕ New Booking</a>
+    <a href="#owner-booking-requests" data-show-role="owner" hidden>Booking Requests</a>
+    <a href="contact.html">📞 Support</a>
+    <a href="php/auth.php?action=logout" style="margin-top:auto; color:var(--red);">🚪 Logout</a>
+  </aside>
+
+  <main class="dashboard-main">
+    <div id="alertBox"></div>
+    <div class="dashboard-greeting">WELCOME, <span data-user-name>USER</span></div>
+    <div class="dashboard-date">Account type: <span data-user-role>customer</span></div>
+
+    <div data-show-role="owner" hidden style="background:var(--card); padding:28px; margin-bottom:28px; border-left:3px solid var(--gold);">
+      <div style="font-family:var(--font-display); font-size:28px; letter-spacing:1px; margin-bottom:8px;">REQUEST A CAR LISTING</div>
+      <p style="color:var(--gray); font-size:14px; line-height:1.7; margin-bottom:22px;">Submit your car details here. The car will be saved as a pending request first. It appears on the website only after admin approval.</p>
+
+      <form action="php/owner.php" method="POST" enctype="multipart/form-data" id="ownerCarRequestForm">
+        <input type="hidden" name="action" value="request_car">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Brand</label>
+            <input type="text" name="brand" placeholder="Toyota" required>
+          </div>
+          <div class="form-group">
+            <label>Model</label>
+            <input type="text" name="model" placeholder="Corolla" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Year</label>
+            <input type="number" name="year" min="1990" max="2027" placeholder="2023" required>
+          </div>
+          <div class="form-group">
+            <label>Price Per Day (PKR)</label>
+            <input type="number" name="price_per_day" min="1000" step="500" placeholder="8000" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Car Type</label>
+            <select name="type">
+              <option value="sedan">Sedan</option>
+              <option value="suv">SUV</option>
+              <option value="hatchback">Hatchback</option>
+              <option value="luxury">Luxury</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Fuel Type</label>
+            <select name="fuel_type">
+              <option value="petrol">Petrol</option>
+              <option value="diesel">Diesel</option>
+              <option value="hybrid">Hybrid</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Transmission</label>
+            <select name="transmission">
+              <option value="auto">Automatic</option>
+              <option value="manual">Manual</option>
+              <option value="cvt">CVT</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Seats</label>
+            <input type="number" name="seats" min="2" max="12" value="5" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" name="city" list="pakistanCityOptions" placeholder="Type or select city" required>
+          </div>
+          <div class="form-group">
+            <label>Car Photos</label>
+            <input type="file" name="car_images[]" id="carImagesInput" accept="image/jpeg,image/png,image/webp" multiple required>
+            <div id="carImagesHint" style="font-size:12px; color:var(--gray); margin-top:6px;">Choose at least 3 car photos from your computer.</div>
+          </div>
+        </div>
+        <div id="ownerCarImagePreview" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:10px; margin-bottom:18px;"></div>
+        <div class="form-group">
+          <label>Description / Condition</label>
+          <textarea name="description" rows="3" placeholder="Clean interior, service history, documents available..."></textarea>
+        </div>
+        <button type="submit" class="btn-gold" style="width:100%; padding:15px;">Send Request To Admin</button>
+        <datalist id="pakistanCityOptions">
+          <option value="Lahore">
+          <option value="Karachi">
+          <option value="Islamabad">
+          <option value="Rawalpindi">
+          <option value="Faisalabad">
+          <option value="Multan">
+          <option value="Peshawar">
+          <option value="Quetta">
+          <option value="Sialkot">
+          <option value="Gujranwala">
+          <option value="Hyderabad">
+          <option value="Sukkur">
+          <option value="Bahawalpur">
+          <option value="Sargodha">
+          <option value="Abbottabad">
+          <option value="Mardan">
+          <option value="Muzaffarabad">
+          <option value="Gilgit">
+          <option value="Skardu">
+          <option value="Gwadar">
+          <option value="Rahim Yar Khan">
+          <option value="Sahiwal">
+          <option value="Okara">
+          <option value="Sheikhupura">
+          <option value="Jhelum">
+          <option value="Gujrat">
+          <option value="Larkana">
+          <option value="Nawabshah">
+          <option value="Dera Ghazi Khan">
+        </datalist>
+      </form>
+    </div>
+
+    <div data-show-role="owner" hidden style="margin-bottom:32px;">
+      <div style="margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+        <div>
+          <div style="font-family:var(--font-display); font-size:28px; letter-spacing:1px;">MY APPROVED LIVE CARS</div>
+          <div style="font-size:13px; color:var(--gray);">Cars approved by admin and published on the website.</div>
+        </div>
+        <button type="button" class="btn-outline" onclick="loadOwnerCarStatus()">Refresh</button>
+      </div>
+
+      <div class="data-table-wrapper" style="margin-bottom:32px;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Car</th>
+              <th>Specs</th>
+              <th>Price</th>
+              <th>Website Status</th>
+              <th>Published</th>
+            </tr>
+          </thead>
+          <tbody id="approvedOwnerCarsBody">
+            <tr>
+              <td colspan="5">Loading approved cars...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <div style="font-family:var(--font-display); font-size:28px; letter-spacing:1px;">MY CAR REQUESTS</div>
+        <div style="font-size:13px; color:var(--gray);">Pending requests stay here until admin approves or rejects them.</div>
+      </div>
+
+      <div class="data-table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Requested Car</th>
+              <th>Specs</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Admin Note</th>
+            </tr>
+          </thead>
+          <tbody id="ownerRequestsStatusBody">
+            <tr>
+              <td colspan="5">Loading requests...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="owner-booking-requests" data-show-role="owner" hidden style="margin-bottom:32px;">
+      <div style="margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+        <div>
+          <div style="font-family:var(--font-display); font-size:28px; letter-spacing:1px;">CUSTOMER BOOKING REQUESTS</div>
+          <div style="font-size:13px; color:var(--gray);">Approve a pending request to mark the car as booked. Rejecting keeps it free.</div>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <span class="badge" id="ownerPendingBookingCount" style="background:#1a2a3a; color:#64b5f6;">0 Pending</span>
+          <button type="button" class="btn-outline" onclick="loadOwnerBookingRequests()">Refresh</button>
+        </div>
+      </div>
+
+      <div class="data-table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Car</th>
+              <th>Booking Detail</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Owner Decision</th>
+            </tr>
+          </thead>
+          <tbody id="ownerBookingRequestsBody">
+            <tr>
+              <td colspan="6">Loading booking requests...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="stats-row" data-show-role="customer" hidden>
+      <div class="stat-card">
+        <div class="stat-card-label">Total Bookings</div>
+        <div class="stat-card-value">3</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Active Rentals</div>
+        <div class="stat-card-value red">1</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Completed</div>
+        <div class="stat-card-value">2</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Total Spent</div>
+        <div class="stat-card-value gold" style="font-size:24px;">Rs. 42,000</div>
+      </div>
+    </div>
+
+    <div data-show-role="customer" hidden style="margin-bottom:24px; display:flex; justify-content:space-between; align-items:center;">
+      <div style="font-family:var(--font-display); font-size:28px; letter-spacing:1px;">MY BOOKINGS</div>
+      <a href="booking.html" class="btn-primary">+ New Booking</a>
+    </div>
+
+    <div class="data-table-wrapper" data-show-role="customer" hidden>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Booking #</th>
+            <th>Car</th>
+            <th>Pick-up</th>
+            <th>Drop-off</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="customerBookingsBody">
+          <tr>
+            <td colspan="7">Loading your bookings...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div data-show-role="customer" hidden style="margin-top:48px; margin-bottom:24px; font-family:var(--font-display); font-size:28px; letter-spacing:1px;">QUICK BOOK</div>
+    <div data-show-role="customer" hidden style="display:grid; grid-template-columns:repeat(3,1fr); gap:2px;">
+      <a href="car-detail.html?id=1" style="background:var(--card); padding:20px; display:block; text-align:center; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+        <div style="font-size:32px; margin-bottom:8px;">🚗</div>
+        <div style="font-family:var(--font-display); font-size:18px; letter-spacing:1px;">Corolla</div>
+        <div style="font-size:12px; color:var(--gray);">Rs. 8,000/day</div>
+      </a>
+      <a href="car-detail.html?id=3" style="background:var(--card); padding:20px; display:block; text-align:center; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+        <div style="font-size:32px; margin-bottom:8px;">🚙</div>
+        <div style="font-family:var(--font-display); font-size:18px; letter-spacing:1px;">Fortuner</div>
+        <div style="font-size:12px; color:var(--gray);">Rs. 18,000/day</div>
+      </a>
+      <a href="car-detail.html?id=5" style="background:var(--card); padding:20px; display:block; text-align:center; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+        <div style="font-size:32px; margin-bottom:8px;">🚐</div>
+        <div style="font-family:var(--font-display); font-size:18px; letter-spacing:1px;">BR-V</div>
+        <div style="font-size:12px; color:var(--gray);">Rs. 12,000/day</div>
+      </a>
+    </div>
+  </main>
+
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/auth-state.js"></script>
+<script src="js/owner-dashboard.js"></script>
+<script src="js/dashboard-bookings.js"></script>
+<script>
+(function initOwnerCarImagePicker() {
+  const form = document.getElementById('ownerCarRequestForm');
+  const input = document.getElementById('carImagesInput');
+  const hint = document.getElementById('carImagesHint');
+  const preview = document.getElementById('ownerCarImagePreview');
+
+  if (!form || !input || !preview) return;
+
+  function selectedImages() {
+    return Array.from(input.files || []).filter(file => file.type && file.type.startsWith('image/'));
+  }
+
+  function updateHint(count) {
+    if (!hint) return;
+    if (count === 0) {
+      hint.textContent = 'Choose at least 3 car photos from your computer.';
+      hint.style.color = 'var(--gray)';
+      return;
+    }
+    if (count < 3) {
+      hint.textContent = `${count} selected. Add ${3 - count} more photo${count === 2 ? '' : 's'}.`;
+      hint.style.color = 'var(--red)';
+      return;
+    }
+    hint.textContent = `${count} selected. Ready to send with the listing request.`;
+    hint.style.color = 'var(--gold)';
+  }
+
+  function renderPreview() {
+    const files = selectedImages();
+    preview.innerHTML = '';
+
+    files.slice(0, 8).forEach((file, index) => {
+      const item = document.createElement('div');
+      item.style.cssText = 'background:var(--black); border:1px solid var(--border); min-height:86px; overflow:hidden; position:relative;';
+
+      const img = document.createElement('img');
+      img.alt = `Selected car photo ${index + 1}`;
+      img.src = URL.createObjectURL(file);
+      img.style.cssText = 'width:100%; height:86px; object-fit:cover; display:block;';
+      img.onload = () => URL.revokeObjectURL(img.src);
+
+      item.appendChild(img);
+      preview.appendChild(item);
+    });
+
+    if (files.length > 8) {
+      const extra = document.createElement('div');
+      extra.style.cssText = 'display:flex; align-items:center; justify-content:center; min-height:86px; border:1px solid var(--border); color:var(--gray); font-size:13px;';
+      extra.textContent = `+${files.length - 8} more`;
+      preview.appendChild(extra);
+    }
+
+    updateHint(files.length);
+  }
+
+  input.addEventListener('change', renderPreview);
+  form.addEventListener('submit', function(event) {
+    const files = selectedImages();
+    if (files.length < 3) {
+      event.preventDefault();
+      updateHint(files.length);
+      if (typeof showAlert === 'function') {
+        showAlert('alertBox', 'Please select at least 3 car photos before sending the request.', 'error');
+      } else {
+        alert('Please select at least 3 car photos before sending the request.');
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>

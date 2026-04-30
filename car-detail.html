@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toyota Corolla — DrivePK</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">DRIVE<span>PK</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cars.html" class="active">Cars</a></li>
+      <li><a href="booking.html">Book Now</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="login.html" class="btn-outline">Login</a>
+      <a href="register.html" class="btn-primary">Register</a>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="cars.html">Cars</a>
+  <a href="booking.html">Book Now</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<div class="container">
+  <div class="car-detail-layout">
+
+    <div>
+      <div class="car-gallery">
+        <div class="car-main-image">
+          <img src="images/corolla.jpg" alt="Toyota Corolla" id="mainImage">
+        </div>
+        <div class="car-thumbs">
+          <div class="car-thumb active" onclick="changeImage('images/corolla.jpg', this)">
+            <img src="images/corolla.jpg" alt="View 1">
+          </div>
+          <div class="car-thumb" onclick="changeImage('images/corolla-interior.jpg', this)">
+            <img src="images/corolla-interior.jpg" alt="Interior">
+          </div>
+          <div class="car-thumb" onclick="changeImage('images/corolla-side.jpg', this)">
+            <img src="images/corolla-side.jpg" alt="Side View">
+          </div>
+          <div class="car-thumb" onclick="changeImage('images/corolla-rear.jpg', this)">
+            <img src="images/corolla-rear.jpg" alt="Rear View">
+          </div>
+        </div>
+      </div>
+
+      <div class="car-detail-brand">Toyota — Sedan</div>
+      <h1 class="car-detail-title">COROLLA</h1>
+      <span class="badge badge-available" style="margin-bottom:20px; display:inline-block;">Available Now</span>
+
+      <div class="car-detail-specs">
+        <div class="detail-spec">
+          <div class="detail-spec-value">1.6L</div>
+          <div class="detail-spec-label">Engine</div>
+        </div>
+        <div class="detail-spec">
+          <div class="detail-spec-value">Petrol</div>
+          <div class="detail-spec-label">Fuel Type</div>
+        </div>
+        <div class="detail-spec">
+          <div class="detail-spec-value">Auto</div>
+          <div class="detail-spec-label">Transmission</div>
+        </div>
+        <div class="detail-spec">
+          <div class="detail-spec-value">5</div>
+          <div class="detail-spec-label">Seats</div>
+        </div>
+        <div class="detail-spec">
+          <div class="detail-spec-value">2023</div>
+          <div class="detail-spec-label">Year</div>
+        </div>
+        <div class="detail-spec">
+          <div class="detail-spec-value">A/C</div>
+          <div class="detail-spec-label">Climate</div>
+        </div>
+      </div>
+
+      <p class="car-description">The Toyota Corolla is one of Pakistan's most trusted family sedans. Comfortable, fuel-efficient, and reliable — it's the perfect choice for city drives or long motorway trips. This 2023 model comes fully serviced with a clean interior and modern infotainment system.</p>
+
+      <div style="background:var(--card); padding:24px; margin-bottom:24px;">
+        <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--red); margin-bottom:16px;">Included Features</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <div style="font-size:14px; color:var(--light-gray); display:flex; align-items:center; gap:8px;"><span style="color:#4caf50;">✓</span> GPS Navigation</div>
+          <div style="font-size:14px; color:var(--light-gray); display:flex; align-items:center; gap:8px;"><span style="color:#4caf50;">✓</span> Bluetooth Audio</div>
+          <div style="font-size:14px; color:var(--light-gray); display:flex; align-items:center; gap:8px;"><span style="color:#4caf50;">✓</span> Backup Camera</div>
+          <div style="font-size:14px; color:var(--light-gray); display:flex; align-items:center; gap:8px;"><span style="color:#4caf50;">✓</span> Full Insurance</div>
+          <div style="font-size:14px; color:var(--light-gray); display:flex; align-items:center; gap:8px;"><span style="color:#4caf50;">✓</span> 24/7 Roadside Assist</div>
+          <div style="font-size:14px; color:var(--light-gray); display:flex; align-items:center; gap:8px;"><span style="color:#4caf50;">✓</span> Free City Delivery</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="booking-sidebar">
+      <div style="text-align:center; margin-bottom:16px;">
+        <div class="speedometer">
+          <div class="speedometer-arc"></div>
+          <div class="speedometer-fill" id="speedFill"></div>
+          <div class="speedometer-label">8K</div>
+        </div>
+        <div style="font-size:11px; color:var(--gray); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px;">Daily Rate</div>
+      </div>
+      <div class="booking-sidebar-price">Rs. 8,000 <span>/ day</span></div>
+
+      <div style="height:1px; background:var(--border); margin:20px 0;"></div>
+
+      <div class="form-group">
+        <label>Pick-up Date</label>
+        <input type="date" id="pickupDate" onchange="calculatePrice()">
+      </div>
+      <div class="form-group">
+        <label>Drop-off Date</label>
+        <input type="date" id="dropoffDate" onchange="calculatePrice()">
+      </div>
+      <div class="form-group">
+        <label>Pick-up City</label>
+        <input type="text" list="pakistanCityOptions" placeholder="Type or select city">
+        <datalist id="pakistanCityOptions">
+          <option value="Lahore">
+          <option value="Karachi">
+          <option value="Islamabad">
+          <option value="Rawalpindi">
+          <option value="Faisalabad">
+          <option value="Multan">
+          <option value="Peshawar">
+          <option value="Quetta">
+          <option value="Sialkot">
+          <option value="Gujranwala">
+          <option value="Hyderabad">
+          <option value="Sukkur">
+          <option value="Bahawalpur">
+          <option value="Sargodha">
+          <option value="Abbottabad">
+          <option value="Mardan">
+          <option value="Muzaffarabad">
+          <option value="Gilgit">
+          <option value="Skardu">
+          <option value="Gwadar">
+          <option value="Rahim Yar Khan">
+          <option value="Sahiwal">
+          <option value="Okara">
+          <option value="Sheikhupura">
+          <option value="Jhelum">
+          <option value="Gujrat">
+          <option value="Larkana">
+          <option value="Nawabshah">
+          <option value="Dera Ghazi Khan">
+        </datalist>
+      </div>
+
+      <div style="background:var(--black); padding:16px; margin-bottom:20px;">
+        <div class="price-line">
+          <span>Daily Rate</span>
+          <strong>Rs. 8,000</strong>
+        </div>
+        <div class="price-line">
+          <span>Days</span>
+          <strong id="numDays">0</strong>
+        </div>
+        <div class="price-line">
+          <span>Service Fee</span>
+          <strong>Rs. 500</strong>
+        </div>
+        <div class="price-total">
+          <span class="price-total-label">Total</span>
+          <span class="price-total-amount" id="totalPrice">Rs. 0</span>
+        </div>
+      </div>
+
+      <a href="booking.html?car=1" class="btn-gold" style="width:100%; text-align:center; display:block; padding:16px;">Request This Car</a>
+      <div style="text-align:center; margin-top:12px; font-size:12px; color:var(--gray);">Free cancellation up to 24 hours before pickup</div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom" style="border-top:1px solid var(--border); padding-top:28px;">
+      <span>© 2025 DrivePK. All rights reserved.</span>
+      <a href="cars.html" style="color:var(--gray);">← Back to Cars</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/booking.js"></script>
+<script src="js/car-detail.js"></script>
+<script>
+function changeImage(src, thumb) {
+  document.getElementById('mainImage').src = src;
+  document.querySelectorAll('.car-thumb').forEach(t => t.classList.remove('active'));
+  thumb.classList.add('active');
+}
+</script>
+</body>
+</html>
