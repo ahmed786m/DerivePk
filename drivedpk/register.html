@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - DrivePK</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">DRIVE<span>PK</span></a>
+    <div class="nav-actions">
+      <a href="login.html" class="btn-outline">Login</a>
+    </div>
+  </div>
+</nav>
+
+<section class="auth-section">
+  <div class="auth-card auth-card-wide">
+    <div class="auth-logo">DRIVE<span>PK</span></div>
+    <div class="auth-tagline">Create a customer account or register as a car owner.</div>
+
+    <div id="alertBox"></div>
+
+    <div class="role-selector" aria-label="Choose registration type">
+      <button type="button" class="role-card active" data-register-role="customer">
+        <strong>Customer</strong>
+        <span>Book cars and manage your rentals.</span>
+      </button>
+      <button type="button" class="role-card" data-register-role="owner">
+        <strong>Car Owner</strong>
+        <span>List vehicles and receive booking requests.</span>
+      </button>
+    </div>
+
+    <form id="registerForm" action="php/auth.php" method="POST">
+      <input type="hidden" name="action" value="register">
+      <input type="hidden" name="role" id="registerRole" value="customer">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" name="first_name" placeholder="Ahmed" required>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" name="last_name" placeholder="Raza" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="your@email.com" required>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" name="phone" placeholder="+92 300 1234567" required>
+      </div>
+
+      <div id="ownerFields" class="owner-fields" hidden>
+        <div class="form-row">
+          <div class="form-group">
+            <label>CNIC Number</label>
+            <input type="text" name="cnic" placeholder="35201-1234567-1">
+          </div>
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" name="city" list="pakistanCityOptions" placeholder="Type or select city">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Business / Company Name</label>
+          <input type="text" name="company_name" placeholder="Raza Rent A Car">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" id="password" placeholder="Minimum 6 characters" required minlength="6">
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" name="confirm_password" id="confirmPassword" placeholder="Repeat password" required>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary auth-submit">Create Account</button>
+      <datalist id="pakistanCityOptions">
+        <option value="Lahore">
+        <option value="Karachi">
+        <option value="Islamabad">
+        <option value="Rawalpindi">
+        <option value="Faisalabad">
+        <option value="Multan">
+        <option value="Peshawar">
+        <option value="Quetta">
+        <option value="Sialkot">
+        <option value="Gujranwala">
+        <option value="Hyderabad">
+        <option value="Sukkur">
+        <option value="Bahawalpur">
+        <option value="Sargodha">
+        <option value="Abbottabad">
+        <option value="Mardan">
+        <option value="Muzaffarabad">
+        <option value="Gilgit">
+        <option value="Skardu">
+        <option value="Gwadar">
+        <option value="Rahim Yar Khan">
+        <option value="Sahiwal">
+        <option value="Okara">
+        <option value="Sheikhupura">
+        <option value="Jhelum">
+        <option value="Gujrat">
+        <option value="Larkana">
+        <option value="Nawabshah">
+        <option value="Dera Ghazi Khan">
+      </datalist>
+    </form>
+
+    <div class="auth-switch">
+      Already have an account? <a href="login.html">Sign in here</a>
+    </div>
+
+    <div style="text-align:center; margin-top:16px;">
+      <a href="index.html" style="font-size:13px; color:var(--gray);">Back to Home</a>
+    </div>
+  </div>
+</section>
+
+<script src="js/main.js"></script>
+<script>
+(function initRegisterPage() {
+  const roleInput = document.getElementById('registerRole');
+  const ownerFields = document.getElementById('ownerFields');
+  const roleButtons = document.querySelectorAll('[data-register-role]');
+  const params = new URLSearchParams(window.location.search);
+
+  function setRole(role) {
+    roleInput.value = role;
+    ownerFields.hidden = role !== 'owner';
+    ownerFields.querySelectorAll('input, select').forEach(field => {
+      field.required = role === 'owner' && ['cnic', 'city', 'company_name'].includes(field.name);
+    });
+    roleButtons.forEach(button => {
+      button.classList.toggle('active', button.dataset.registerRole === role);
+    });
+  }
+
+  roleButtons.forEach(button => {
+    button.addEventListener('click', () => setRole(button.dataset.registerRole));
+  });
+
+  setRole(params.get('role') === 'owner' ? 'owner' : 'customer');
+
+  ['error', 'success'].forEach(type => {
+    const message = params.get(type);
+    if (message) showAlert('alertBox', message, type);
+  });
+
+  document.getElementById('registerForm').addEventListener('submit', function(e) {
+    const pass = document.getElementById('password').value;
+    const confirm = document.getElementById('confirmPassword').value;
+    if (pass !== confirm) {
+      e.preventDefault();
+      showAlert('alertBox', 'Passwords do not match.', 'error');
+    }
+  });
+})();
+</script>
+</body>
+</html>

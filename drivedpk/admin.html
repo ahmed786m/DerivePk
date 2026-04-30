@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — DrivePK</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-guard="admin">
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">DRIVE<span>PK</span> <span style="font-size:12px; color:var(--gold); letter-spacing:2px; font-family:var(--font-body);">ADMIN</span></a>
+    <div class="nav-actions">
+      <a href="php/auth.php?action=logout" class="btn-outline">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<div class="dashboard-layout">
+
+  <aside class="sidebar-nav">
+    <div class="sidebar-nav-logo">ADMIN</div>
+    <a href="admin.html" class="active">📊 Dashboard</a>
+    <a href="#cars-section" onclick="showSection('cars')">🚗 Manage Cars</a>
+    <a href="#owner-requests">Owner Requests</a>
+    <a href="#bookings-section" onclick="showSection('bookings')">📋 Bookings</a>
+    <a href="#users-section" onclick="showSection('users')">👥 Users</a>
+    <a href="#messages-section" onclick="showSection('messages')">✉️ Messages</a>
+    <a href="index.html">🌐 View Site</a>
+    <a href="php/auth.php?action=logout" style="color:var(--red);">🚪 Logout</a>
+  </aside>
+
+  <main class="dashboard-main">
+
+    <div id="alertBox"></div>
+    <div class="dashboard-greeting">ADMIN PANEL</div>
+    <div class="dashboard-date">Logged in as <span data-user-name>Admin</span> - manage everything from here</div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-card-label">Total Cars</div>
+        <div class="stat-card-value" id="adminTotalCars">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Total Bookings</div>
+        <div class="stat-card-value gold" id="adminTotalBookings">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Registered Users</div>
+        <div class="stat-card-value" id="adminTotalUsers">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Revenue (PKR)</div>
+        <div class="stat-card-value" id="adminTotalRevenue" style="font-size:20px; color:var(--gold);">Rs. 0</div>
+      </div>
+    </div>
+
+    <div id="owner-requests" style="margin-bottom:48px;">
+      <div style="margin-bottom:24px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+        <div>
+          <div style="font-family:var(--font-display); font-size:28px; letter-spacing:1px;">OWNER CAR REQUESTS</div>
+          <div style="font-size:13px; color:var(--gray);">Approve a request to publish the car on the website.</div>
+        </div>
+        <button class="btn-outline" type="button" onclick="loadOwnerRequests()">Refresh</button>
+      </div>
+
+      <div class="data-table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Owner</th>
+              <th>Car</th>
+              <th>Specs</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Decision</th>
+            </tr>
+          </thead>
+          <tbody id="ownerRequestsBody">
+            <tr>
+              <td colspan="6">Loading owner requests...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="section-cars">
+      <div style="margin-bottom:24px; display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-family:var(--font-display); font-size:28px; letter-spacing:1px;">MANAGE CARS</div>
+        <button class="btn-primary" onclick="document.getElementById('addCarForm').style.display='block'">+ Add Car</button>
+      </div>
+
+      <div id="addCarForm" style="display:none; background:var(--card); padding:28px; margin-bottom:24px;">
+        <div style="font-family:var(--font-display); font-size:24px; letter-spacing:1px; margin-bottom:20px;">ADD NEW CAR</div>
+        <form action="php/admin.php" method="POST">
+          <input type="hidden" name="action" value="add_car">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Brand</label>
+              <input type="text" name="brand" placeholder="Toyota" required>
+            </div>
+            <div class="form-group">
+              <label>Model</label>
+              <input type="text" name="model" placeholder="Corolla" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Year</label>
+              <input type="number" name="year" placeholder="2023" required>
+            </div>
+            <div class="form-group">
+              <label>Price Per Day (PKR)</label>
+              <input type="number" name="price_per_day" placeholder="8000" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Car Type</label>
+              <select name="type">
+                <option value="sedan">Sedan</option>
+                <option value="suv">SUV</option>
+                <option value="hatchback">Hatchback</option>
+                <option value="luxury">Luxury</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Fuel Type</label>
+              <select name="fuel_type">
+                <option value="petrol">Petrol</option>
+                <option value="diesel">Diesel</option>
+                <option value="hybrid">Hybrid</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Transmission</label>
+              <select name="transmission">
+                <option value="auto">Automatic</option>
+                <option value="manual">Manual</option>
+                <option value="cvt">CVT</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Seats</label>
+              <input type="number" name="seats" placeholder="5" value="5" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Image Filename (in /images/)</label>
+            <input type="text" name="image" placeholder="corolla.jpg">
+          </div>
+          <div style="display:flex; gap:12px;">
+            <button type="submit" class="btn-primary">Save Car</button>
+            <button type="button" class="btn-outline" onclick="document.getElementById('addCarForm').style.display='none'">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="data-table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Car</th>
+              <th>Type</th>
+              <th>Price/Day</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="adminCarsBody">
+            <tr>
+              <td colspan="6">Loading cars...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="margin-top:48px; margin-bottom:24px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+      <div>
+        <div style="font-family:var(--font-display); font-size:28px; letter-spacing:1px;">ALL BOOKING RECORDS</div>
+        <div style="font-size:13px; color:var(--gray);">Customer detail, car detail, owner detail and approval status in one place.</div>
+      </div>
+      <button type="button" class="btn-outline" onclick="loadAdminBookings()">Refresh</button>
+    </div>
+    <div class="data-table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Booking #</th>
+            <th>Customer Detail</th>
+            <th>Car Detail</th>
+            <th>Booking Detail</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="adminBookingsBody">
+          <tr>
+            <td colspan="7">Loading bookings...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/auth-state.js"></script>
+<script>
+function escapeHTML(value) {
+  return String(value ?? '').replace(/[&<>"']/g, function(char) {
+    return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[char];
+  });
+}
+
+function formatPKR(value) {
+  return 'Rs. ' + Number(value || 0).toLocaleString('en-PK');
+}
+
+function formatDate(value) {
+  if (!value) return '-';
+  const date = new Date(String(value).replace(' ', 'T'));
+  if (Number.isNaN(date.getTime())) return escapeHTML(value);
+  return date.toLocaleDateString('en-PK', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+function parseGalleryImages(value, fallbackImage) {
+  let images = [];
+  if (Array.isArray(value)) {
+    images = value;
+  } else if (value) {
+    try {
+      const parsed = JSON.parse(value);
+      images = Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+      images = String(value).split(/[\r\n,]+/);
+    }
+  }
+  if (!images.length && fallbackImage) images = [fallbackImage];
+  return images.filter(Boolean);
+}
+
+function imagePath(image) {
+  const value = String(image || 'corolla.jpg').trim();
+  if (/^(https?:)?\/\//i.test(value) || value.startsWith('data:')) return value;
+  if (value.startsWith('images/')) return value;
+  return 'images/' + value;
+}
+
+function gallerySummary(value, fallbackImage) {
+  const images = parseGalleryImages(value, fallbackImage);
+  if (!images.length) return '';
+  return `
+    <div style="display:flex; gap:6px; margin-top:8px; align-items:center; flex-wrap:wrap;">
+      ${images.slice(0, 3).map(image => `<img src="${escapeHTML(imagePath(image))}" alt="Car photo" style="width:46px; height:34px; object-fit:cover; border:1px solid var(--border);">`).join('')}
+      <span style="font-size:12px; color:var(--gray);">${images.length} photo(s)</span>
+    </div>
+  `;
+}
+
+function statusBadge(status) {
+  if (status === 'approved') return '<span class="badge badge-available">Approved</span>';
+  if (status === 'confirmed' || status === 'active') return '<span class="badge badge-booked">Booked</span>';
+  if (status === 'completed') return '<span class="badge badge-available">Completed</span>';
+  if (status === 'cancelled') return '<span class="badge badge-booked">Cancelled</span>';
+  if (status === 'rejected') return '<span class="badge badge-booked">Rejected</span>';
+  return '<span class="badge" style="background:#1a2a3a; color:#64b5f6;">Pending</span>';
+}
+
+function availabilityBadge(available) {
+  return Number(available) === 1 || available === true
+    ? '<span class="badge badge-available">Free</span>'
+    : '<span class="badge badge-booked">Booked</span>';
+}
+
+function requestActions(request) {
+  if (request.status !== 'pending') {
+    return `<div style="font-size:12px; color:var(--gray);">${escapeHTML(request.admin_note || 'Reviewed')}</div>`;
+  }
+
+  return `
+    <form action="php/admin.php" method="POST" style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px;">
+      <input type="hidden" name="action" value="approve_car_request">
+      <input type="hidden" name="request_id" value="${escapeHTML(request.id)}">
+      <input type="text" name="admin_note" placeholder="Approval note" style="min-width:150px; flex:1; background:var(--black); border:1px solid var(--border); color:var(--white); padding:8px;">
+      <button class="action-btn edit" type="submit">Approve</button>
+    </form>
+    <form action="php/admin.php" method="POST" style="display:flex; gap:8px; flex-wrap:wrap;">
+      <input type="hidden" name="action" value="reject_car_request">
+      <input type="hidden" name="request_id" value="${escapeHTML(request.id)}">
+      <input type="text" name="admin_note" placeholder="Reject reason" style="min-width:150px; flex:1; background:var(--black); border:1px solid var(--border); color:var(--white); padding:8px;">
+      <button class="action-btn delete" type="submit">Reject</button>
+    </form>
+  `;
+}
+
+function bookingActions(booking) {
+  const statuses = ['pending', 'confirmed', 'active', 'completed', 'cancelled', 'rejected'];
+  return `
+    <form action="php/admin.php" method="POST" style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+      <input type="hidden" name="action" value="update_booking">
+      <input type="hidden" name="booking_id" value="${escapeHTML(booking.id)}">
+      <select name="status" style="background:var(--black); border:1px solid var(--border); color:var(--white); padding:8px;">
+        ${statuses.map(status => `<option value="${status}" ${booking.status === status ? 'selected' : ''}>${status}</option>`).join('')}
+      </select>
+      <button class="action-btn edit" type="submit">Update</button>
+    </form>
+  `;
+}
+
+async function loadOwnerRequests() {
+  const body = document.getElementById('ownerRequestsBody');
+  if (!body) return;
+
+  body.innerHTML = '<tr><td colspan="6">Loading owner requests...</td></tr>';
+
+  try {
+    const response = await fetch('php/admin.php?action=list_car_requests', { cache: 'no-store' });
+    const result = await response.json();
+    const requests = result.requests || [];
+
+    if (!requests.length) {
+      body.innerHTML = '<tr><td colspan="6">No owner car requests yet.</td></tr>';
+      return;
+    }
+
+    body.innerHTML = requests.map(request => `
+      <tr>
+        <td>
+          <strong>${escapeHTML(request.owner_name)}</strong>
+          <div style="font-size:12px; color:var(--gray);">${escapeHTML(request.owner_email)}</div>
+          <div style="font-size:12px; color:var(--gray);">${escapeHTML(request.owner_phone)}</div>
+        </td>
+        <td>
+          <strong>${escapeHTML(request.brand)} ${escapeHTML(request.model)}</strong>
+          <div style="font-size:12px; color:var(--gray);">${escapeHTML(request.year)} - ${escapeHTML(request.city || '')}</div>
+          ${gallerySummary(request.gallery_images, request.image)}
+          <div style="font-size:12px; color:var(--gray);">${escapeHTML(request.description || '')}</div>
+        </td>
+        <td>${escapeHTML(request.type)} / ${escapeHTML(request.fuel_type)} / ${escapeHTML(request.transmission)} / ${escapeHTML(request.seats)} seats</td>
+        <td style="color:var(--gold);">${formatPKR(request.price_per_day)}</td>
+        <td>${statusBadge(request.status)}</td>
+        <td>${requestActions(request)}</td>
+      </tr>
+    `).join('');
+  } catch (error) {
+    body.innerHTML = '<tr><td colspan="6">Could not load requests. Make sure Apache, MySQL and the database are running.</td></tr>';
+  }
+}
+
+async function loadAdminSummary() {
+  try {
+    const response = await fetch('php/admin.php?action=summary', { cache: 'no-store' });
+    const result = await response.json();
+    const summary = result.summary || {};
+
+    document.getElementById('adminTotalCars').textContent = summary.cars || 0;
+    document.getElementById('adminTotalBookings').textContent = summary.bookings || 0;
+    document.getElementById('adminTotalUsers').textContent = summary.users || 0;
+    document.getElementById('adminTotalRevenue').textContent = formatPKR(summary.revenue || 0);
+  } catch (error) {}
+}
+
+async function loadAdminCars() {
+  const body = document.getElementById('adminCarsBody');
+  if (!body) return;
+
+  body.innerHTML = '<tr><td colspan="6">Loading cars...</td></tr>';
+
+  try {
+    const response = await fetch('php/cars.php', { cache: 'no-store' });
+    const result = await response.json();
+    const cars = result.cars || [];
+
+    if (!cars.length) {
+      body.innerHTML = '<tr><td colspan="6">No cars found.</td></tr>';
+      return;
+    }
+
+    body.innerHTML = cars.map(car => `
+      <tr>
+        <td>${escapeHTML(car.id)}</td>
+        <td>
+          <strong>${escapeHTML(car.brand)} ${escapeHTML(car.model)} ${escapeHTML(car.year)}</strong>
+          <div style="font-size:12px; color:var(--gray);">Owner: ${escapeHTML(car.owner_name || 'DrivePK admin')}</div>
+        </td>
+        <td>${escapeHTML(car.type)} / ${escapeHTML(car.fuel_type)} / ${escapeHTML(car.transmission)}</td>
+        <td style="color:var(--gold);">${formatPKR(car.price_per_day)}</td>
+        <td>${availabilityBadge(car.available)}</td>
+        <td><div class="table-actions">
+          <button class="action-btn edit" onclick="editCar(${escapeHTML(car.id)})">Edit</button>
+          <button class="action-btn delete" onclick="deleteCar(${escapeHTML(car.id)})">Delete</button>
+        </div></td>
+      </tr>
+    `).join('');
+  } catch (error) {
+    body.innerHTML = '<tr><td colspan="6">Could not load cars.</td></tr>';
+  }
+}
+
+async function loadAdminBookings() {
+  const body = document.getElementById('adminBookingsBody');
+  if (!body) return;
+
+  body.innerHTML = '<tr><td colspan="7">Loading bookings...</td></tr>';
+
+  try {
+    const response = await fetch('php/admin.php?action=list_bookings', { cache: 'no-store' });
+    const result = await response.json();
+    const bookings = result.bookings || [];
+
+    if (!bookings.length) {
+      body.innerHTML = '<tr><td colspan="7">No booking records yet.</td></tr>';
+      return;
+    }
+
+    body.innerHTML = bookings.map(booking => `
+      <tr>
+        <td>
+          <strong>${escapeHTML(booking.booking_ref)}</strong>
+          <div style="font-size:12px; color:var(--gray);">Submitted ${formatDate(booking.created_at)}</div>
+        </td>
+        <td>
+          <strong>${escapeHTML(booking.full_name)}</strong>
+          <div style="font-size:12px; color:var(--gray);">${escapeHTML(booking.email)}</div>
+          <div style="font-size:12px; color:var(--gray);">${escapeHTML(booking.phone)}</div>
+          <div style="font-size:12px; color:var(--gray);">CNIC: ${escapeHTML(booking.cnic)}</div>
+        </td>
+        <td>
+          <strong>${escapeHTML(booking.brand)} ${escapeHTML(booking.model)} ${escapeHTML(booking.year)}</strong>
+          <div style="font-size:12px; color:var(--gray);">${escapeHTML(booking.type)} / ${escapeHTML(booking.fuel_type)} / ${escapeHTML(booking.transmission)} / ${escapeHTML(booking.seats)} seats</div>
+          <div style="font-size:12px; color:var(--gray);">Owner: ${escapeHTML(booking.owner_name || 'DrivePK admin')}</div>
+          <div style="font-size:12px; color:var(--gray);">Car status: ${Number(booking.available) === 1 ? 'Free' : 'Booked'}</div>
+        </td>
+        <td>
+          <div>${formatDate(booking.pickup_date)} to ${formatDate(booking.dropoff_date)}</div>
+          <div style="font-size:12px; color:var(--gray);">${escapeHTML(booking.total_days)} day(s), ${escapeHTML(booking.pickup_city)}</div>
+          <div style="font-size:12px; color:var(--gray);">${escapeHTML(booking.notes || '')}</div>
+          ${booking.owner_note ? `<div style="font-size:12px; color:var(--gold); margin-top:4px;">Owner: ${escapeHTML(booking.owner_note)}</div>` : ''}
+        </td>
+        <td style="color:var(--gold);">${formatPKR(booking.total_price)}</td>
+        <td>${statusBadge(booking.status)}</td>
+        <td>${bookingActions(booking)}</td>
+      </tr>
+    `).join('');
+  } catch (error) {
+    body.innerHTML = '<tr><td colspan="7">Could not load booking records.</td></tr>';
+  }
+}
+
+function editCar(id) {
+  alert('Edit car #' + id + ' — connect to PHP admin.php for full edit functionality.');
+}
+
+function deleteCar(id) {
+  if (confirm('Delete car #' + id + '? This cannot be undone.')) {
+    window.location.href = 'php/admin.php?action=delete_car&id=' + id;
+  }
+}
+
+function showSection(name) {
+  if (window.event) window.event.preventDefault();
+}
+
+loadOwnerRequests();
+loadAdminSummary();
+loadAdminCars();
+loadAdminBookings();
+</script>
+</body>
+</html>

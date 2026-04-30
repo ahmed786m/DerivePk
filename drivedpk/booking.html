@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Car — DrivePK</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-guard="customer">
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">DRIVE<span>PK</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cars.html">Cars</a></li>
+      <li><a href="booking.html" class="active">Book Now</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="login.html" class="btn-outline">Login</a>
+      <a href="register.html" class="btn-primary">Register</a>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="cars.html">Cars</a>
+  <a href="booking.html">Book Now</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>BOOK YOUR CAR</h1>
+    <p>Submit your booking request and the car owner will approve it first</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="booking-layout">
+
+    <div>
+      <div id="alertBox"></div>
+
+      <form class="booking-card" id="bookingForm" action="php/booking.php" method="POST">
+        <h2>YOUR DETAILS</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" name="first_name" placeholder="Ahmed" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" name="last_name" placeholder="Raza" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" name="email" placeholder="ahmed@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" name="phone" placeholder="+92 300 1234567" required>
+        </div>
+
+        <div class="form-group">
+          <label>CNIC Number</label>
+          <input type="text" name="cnic" placeholder="35201-1234567-1" required>
+        </div>
+
+        <h2 style="margin-top:32px;">RENTAL DETAILS</h2>
+
+        <div class="form-group">
+          <label>Select Car</label>
+          <select name="car_id" id="carSelect" onchange="updatePrice()">
+            <option value="1" data-price="8000">Toyota Corolla — Rs. 8,000/day</option>
+            <option value="2" data-price="9500">Honda Civic — Rs. 9,500/day</option>
+            <option value="3" data-price="18000">Toyota Fortuner — Rs. 18,000/day</option>
+            <option value="4" data-price="5500">Suzuki Cultus — Rs. 5,500/day</option>
+            <option value="5" data-price="12000">Honda BR-V — Rs. 12,000/day</option>
+            <option value="6" data-price="15000">Hyundai Tucson — Rs. 15,000/day</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Pick-up Date</label>
+            <input type="date" name="pickup_date" id="pickupDate" required onchange="calculatePrice()">
+          </div>
+          <div class="form-group">
+            <label>Drop-off Date</label>
+            <input type="date" name="dropoff_date" id="dropoffDate" required onchange="calculatePrice()">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Pick-up City</label>
+          <input type="text" name="pickup_city" list="pakistanCityOptions" placeholder="Type or select city" required>
+        </div>
+
+        <div class="form-group">
+          <label>Special Requests (Optional)</label>
+          <textarea name="notes" rows="3" placeholder="Any special requirements..."></textarea>
+        </div>
+
+        <input type="hidden" name="total_price" id="totalPriceInput" value="0">
+
+        <button type="submit" class="btn-gold" style="width:100%; padding:16px; font-size:15px;">Send Booking Request</button>
+        <p style="font-size:12px; color:var(--gray); text-align:center; margin-top:12px;">The car is marked booked only after the owner approves your request.</p>
+        <datalist id="pakistanCityOptions">
+          <option value="Lahore">
+          <option value="Karachi">
+          <option value="Islamabad">
+          <option value="Rawalpindi">
+          <option value="Faisalabad">
+          <option value="Multan">
+          <option value="Peshawar">
+          <option value="Quetta">
+          <option value="Sialkot">
+          <option value="Gujranwala">
+          <option value="Hyderabad">
+          <option value="Sukkur">
+          <option value="Bahawalpur">
+          <option value="Sargodha">
+          <option value="Abbottabad">
+          <option value="Mardan">
+          <option value="Muzaffarabad">
+          <option value="Gilgit">
+          <option value="Skardu">
+          <option value="Gwadar">
+          <option value="Rahim Yar Khan">
+          <option value="Sahiwal">
+          <option value="Okara">
+          <option value="Sheikhupura">
+          <option value="Jhelum">
+          <option value="Gujrat">
+          <option value="Larkana">
+          <option value="Nawabshah">
+          <option value="Dera Ghazi Khan">
+        </datalist>
+      </form>
+    </div>
+
+    <div class="price-summary">
+      <h3>PRICE SUMMARY</h3>
+
+      <div style="background:var(--black); padding:16px; margin-bottom:20px;">
+        <div style="font-size:12px; color:var(--gray); margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">Selected Car</div>
+        <div style="font-family:var(--font-display); font-size:22px; letter-spacing:1px;" id="summaryCarName">Toyota Corolla</div>
+      </div>
+
+      <div class="price-line">
+        <span>Daily Rate</span>
+        <strong id="summaryRate">Rs. 8,000</strong>
+      </div>
+      <div class="price-line">
+        <span>Number of Days</span>
+        <strong id="summaryDays">0 days</strong>
+      </div>
+      <div class="price-line">
+        <span>Rental Subtotal</span>
+        <strong id="summarySubtotal">Rs. 0</strong>
+      </div>
+      <div class="price-line">
+        <span>Service Fee</span>
+        <strong>Rs. 500</strong>
+      </div>
+
+      <div class="price-total">
+        <span class="price-total-label">TOTAL</span>
+        <span class="price-total-amount" id="summaryTotal">Rs. 500</span>
+      </div>
+
+      <div style="margin-top:24px; padding:16px; background:var(--black);">
+        <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--red); margin-bottom:12px;">Booking Includes</div>
+        <div style="font-size:13px; color:var(--gray); display:flex; flex-direction:column; gap:8px;">
+          <span><span style="color:#4caf50;">✓</span> Full insurance coverage</span>
+          <span><span style="color:#4caf50;">✓</span> GPS navigation</span>
+          <span><span style="color:#4caf50;">✓</span> 24/7 roadside assistance</span>
+          <span><span style="color:#4caf50;">✓</span> Free city delivery</span>
+          <span><span style="color:#4caf50;">✓</span> Free cancellation (24hr)</span>
+        </div>
+      </div>
+
+      <div style="margin-top:16px; padding:16px; background:var(--black);">
+        <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--red); margin-bottom:12px;">Need Help?</div>
+        <div style="font-size:13px; color:var(--gray);">Call us: <a href="tel:+923001234567" style="color:var(--white);">+92 300 1234567</a></div>
+        <div style="font-size:13px; color:var(--gray); margin-top:6px;">Available 8AM – 10PM daily</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom" style="border-top:1px solid var(--border); padding-top:28px;">
+      <span>© 2025 DrivePK. All rights reserved.</span>
+      <a href="cars.html" style="color:var(--gray);">← Back to Cars</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/auth-state.js"></script>
+<script src="js/booking.js"></script>
+</body>
+</html>

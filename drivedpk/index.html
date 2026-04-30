@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DrivePK — Premium Car Rental Pakistan</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">DRIVE<span>PK</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="cars.html">Cars</a></li>
+      <li><a href="booking.html">Book Now</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="login.html" class="btn-outline">Login</a>
+      <a href="register.html" class="btn-primary">Register</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="cars.html">Cars</a>
+  <a href="booking.html">Book Now</a>
+  <a href="contact.html">Contact</a>
+  <a href="login.html">Login</a>
+  <a href="register.html">Register</a>
+</div>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-tag">Pakistan's Premier Car Rental</div>
+      <h1>DRIVE<br><span>YOUR</span><br>WAY</h1>
+      <p>Premium cars at unbeatable prices. From daily commutes to long road trips — we have the perfect ride for every journey across Pakistan.</p>
+      <div class="hero-actions">
+        <a href="cars.html" class="btn-primary">Explore Cars</a>
+        <a href="booking.html" class="btn-outline">Book Now</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number">50<span>+</span></div>
+        <div class="stat-label">Cars Available</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">10<span>K+</span></div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">5<span>+</span></div>
+        <div class="stat-label">Cities Covered</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">24<span>/7</span></div>
+        <div class="stat-label">Support</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="search-bar-section">
+  <form class="search-bar" action="cars.html" method="GET">
+    <div class="search-field">
+      <label>Car Type</label>
+      <select name="type">
+        <option value="">All Types</option>
+        <option value="sedan">Sedan</option>
+        <option value="suv">SUV</option>
+        <option value="hatchback">Hatchback</option>
+        <option value="luxury">Luxury</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label>Pick-up City</label>
+      <input type="text" name="city" list="pakistanCityOptions" placeholder="Type or select city">
+      <datalist id="pakistanCityOptions">
+        <option value="Lahore">
+        <option value="Karachi">
+        <option value="Islamabad">
+        <option value="Rawalpindi">
+        <option value="Faisalabad">
+        <option value="Multan">
+        <option value="Peshawar">
+        <option value="Quetta">
+        <option value="Sialkot">
+        <option value="Gujranwala">
+        <option value="Hyderabad">
+        <option value="Sukkur">
+        <option value="Bahawalpur">
+        <option value="Sargodha">
+        <option value="Abbottabad">
+        <option value="Mardan">
+        <option value="Muzaffarabad">
+        <option value="Gilgit">
+        <option value="Skardu">
+        <option value="Gwadar">
+        <option value="Rahim Yar Khan">
+        <option value="Sahiwal">
+        <option value="Okara">
+        <option value="Sheikhupura">
+        <option value="Jhelum">
+        <option value="Gujrat">
+        <option value="Larkana">
+        <option value="Nawabshah">
+        <option value="Dera Ghazi Khan">
+      </datalist>
+    </div>
+    <div class="search-field">
+      <label>Pick-up Date</label>
+      <input type="date" name="date" id="pickupDate">
+    </div>
+    <button type="submit" class="search-btn">Search Cars</button>
+  </form>
+</section>
+
+<section class="cars-section">
+  <div class="container">
+    <h2 class="section-title">FEATURED CARS</h2>
+    <p class="section-subtitle">Hand-picked vehicles for every need and budget</p>
+
+    <div class="cars-filter">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="sedan">Sedan</button>
+      <button class="filter-btn" data-filter="suv">SUV</button>
+      <button class="filter-btn" data-filter="hatchback">Hatchback</button>
+    </div>
+
+    <div class="cars-grid" id="carsGrid">
+
+      <div class="car-card" data-category="sedan">
+        <div class="car-card-image">
+          <img src="images/corolla.jpg" alt="Toyota Corolla" loading="lazy">
+          <div class="car-card-badge"><span class="badge badge-available">Available</span></div>
+        </div>
+        <div class="car-card-body">
+          <div class="car-brand">Toyota</div>
+          <div class="car-name">Corolla</div>
+          <div class="car-specs">
+            <div class="car-spec"><span class="car-spec-icon">⛽</span> Petrol</div>
+            <div class="car-spec"><span class="car-spec-icon">⚙️</span> Auto</div>
+            <div class="car-spec"><span class="car-spec-icon">👥</span> 5 Seats</div>
+          </div>
+          <div class="car-card-footer">
+            <div class="car-price">Rs. 8,000 <span>/ day</span></div>
+            <a href="car-detail.html?id=1" class="btn-primary">Rent Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-card" data-category="sedan">
+        <div class="car-card-image">
+          <img src="images/civic.jpg" alt="Honda Civic" loading="lazy">
+          <div class="car-card-badge"><span class="badge badge-available">Available</span></div>
+        </div>
+        <div class="car-card-body">
+          <div class="car-brand">Honda</div>
+          <div class="car-name">Civic</div>
+          <div class="car-specs">
+            <div class="car-spec"><span class="car-spec-icon">⛽</span> Petrol</div>
+            <div class="car-spec"><span class="car-spec-icon">⚙️</span> Auto</div>
+            <div class="car-spec"><span class="car-spec-icon">👥</span> 5 Seats</div>
+          </div>
+          <div class="car-card-footer">
+            <div class="car-price">Rs. 9,500 <span>/ day</span></div>
+            <a href="car-detail.html?id=2" class="btn-primary">Rent Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-card" data-category="suv">
+        <div class="car-card-image">
+          <img src="images/fortuner.jpg" alt="Toyota Fortuner" loading="lazy">
+          <div class="car-card-badge"><span class="badge badge-featured">Popular</span></div>
+        </div>
+        <div class="car-card-body">
+          <div class="car-brand">Toyota</div>
+          <div class="car-name">Fortuner</div>
+          <div class="car-specs">
+            <div class="car-spec"><span class="car-spec-icon">⛽</span> Diesel</div>
+            <div class="car-spec"><span class="car-spec-icon">⚙️</span> Auto</div>
+            <div class="car-spec"><span class="car-spec-icon">👥</span> 7 Seats</div>
+          </div>
+          <div class="car-card-footer">
+            <div class="car-price">Rs. 18,000 <span>/ day</span></div>
+            <a href="car-detail.html?id=3" class="btn-primary">Rent Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-card" data-category="hatchback">
+        <div class="car-card-image">
+          <img src="images/cultus.jpg" alt="Suzuki Cultus" loading="lazy">
+          <div class="car-card-badge"><span class="badge badge-available">Available</span></div>
+        </div>
+        <div class="car-card-body">
+          <div class="car-brand">Suzuki</div>
+          <div class="car-name">Cultus</div>
+          <div class="car-specs">
+            <div class="car-spec"><span class="car-spec-icon">⛽</span> Petrol</div>
+            <div class="car-spec"><span class="car-spec-icon">⚙️</span> Manual</div>
+            <div class="car-spec"><span class="car-spec-icon">👥</span> 5 Seats</div>
+          </div>
+          <div class="car-card-footer">
+            <div class="car-price">Rs. 5,500 <span>/ day</span></div>
+            <a href="car-detail.html?id=4" class="btn-primary">Rent Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-card" data-category="suv">
+        <div class="car-card-image">
+          <img src="images/brv.jpg" alt="Honda BRV" loading="lazy">
+          <div class="car-card-badge"><span class="badge badge-available">Available</span></div>
+        </div>
+        <div class="car-card-body">
+          <div class="car-brand">Honda</div>
+          <div class="car-name">BR-V</div>
+          <div class="car-specs">
+            <div class="car-spec"><span class="car-spec-icon">⛽</span> Petrol</div>
+            <div class="car-spec"><span class="car-spec-icon">⚙️</span> CVT</div>
+            <div class="car-spec"><span class="car-spec-icon">👥</span> 7 Seats</div>
+          </div>
+          <div class="car-card-footer">
+            <div class="car-price">Rs. 12,000 <span>/ day</span></div>
+            <a href="car-detail.html?id=5" class="btn-primary">Rent Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-card" data-category="suv">
+        <div class="car-card-image">
+          <img src="images/tucson.jpg" alt="Hyundai Tucson" loading="lazy">
+          <div class="car-card-badge"><span class="badge badge-booked">Booked</span></div>
+        </div>
+        <div class="car-card-body">
+          <div class="car-brand">Hyundai</div>
+          <div class="car-name">Tucson</div>
+          <div class="car-specs">
+            <div class="car-spec"><span class="car-spec-icon">⚡</span> Hybrid</div>
+            <div class="car-spec"><span class="car-spec-icon">⚙️</span> Auto</div>
+            <div class="car-spec"><span class="car-spec-icon">👥</span> 5 Seats</div>
+          </div>
+          <div class="car-card-footer">
+            <div class="car-price">Rs. 15,000 <span>/ day</span></div>
+            <a href="car-detail.html?id=6" class="btn-outline">View Details</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center; margin-top: 48px;">
+      <a href="cars.html" class="btn-outline">View All Cars</a>
+    </div>
+  </div>
+</section>
+
+<section class="features-section">
+  <div class="container">
+    <h2 class="section-title">WHY CHOOSE US</h2>
+    <p class="section-subtitle">We go beyond just renting cars</p>
+    <div class="features-grid">
+      <div class="feature-item">
+        <span class="feature-icon">🔑</span>
+        <div class="feature-title">Instant Booking</div>
+        <p class="feature-desc">Book in under 2 minutes. No paperwork, no waiting. Your car is ready when you are.</p>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🛡️</span>
+        <div class="feature-title">Fully Insured</div>
+        <p class="feature-desc">Every rental comes with comprehensive insurance coverage for complete peace of mind.</p>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📍</span>
+        <div class="feature-title">GPS Tracking</div>
+        <p class="feature-desc">Real-time GPS in every car. Track your route, stay safe, never get lost.</p>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📞</span>
+        <div class="feature-title">24/7 Support</div>
+        <p class="feature-desc">Our team is available around the clock to assist you wherever you are in Pakistan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how-section">
+  <div class="container">
+    <h2 class="section-title">HOW IT WORKS</h2>
+    <p class="section-subtitle">Get on the road in 4 simple steps</p>
+    <div class="steps-grid">
+      <div class="step-item">
+        <div class="step-number">01</div>
+        <div class="step-title">Choose a Car</div>
+        <p class="step-desc">Browse our fleet and pick the car that fits your needs and budget.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-number">02</div>
+        <div class="step-title">Pick Dates</div>
+        <p class="step-desc">Select your pick-up and drop-off dates. See the total price instantly.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-number">03</div>
+        <div class="step-title">Book & Pay</div>
+        <p class="step-desc">Fill in your details, confirm your booking, and pay securely online.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-number">04</div>
+        <div class="step-title">Hit the Road</div>
+        <p class="step-desc">Pick up your car and enjoy the ride. It's that simple.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials-section">
+  <div class="container">
+    <h2 class="section-title">WHAT PEOPLE SAY</h2>
+    <p class="section-subtitle">Over 10,000 happy customers across Pakistan</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Rented the Fortuner for a family trip to Murree. Booking was super easy and the car was in perfect condition. Will definitely use DrivePK again!"</p>
+        <div class="testimonial-author">Ahmed Raza</div>
+        <div class="testimonial-city">Lahore, Punjab</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"The Civic I booked was spotless and the price was unbeatable. The whole process from booking to return took less than 5 minutes online."</p>
+        <div class="testimonial-author">Sara Malik</div>
+        <div class="testimonial-city">Karachi, Sindh</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★☆</div>
+        <p class="testimonial-text">"Great service and very professional staff. The GPS feature in the car was a lifesaver when navigating Islamabad's new sectors."</p>
+        <div class="testimonial-author">Bilal Khan</div>
+        <div class="testimonial-city">Islamabad, ICT</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2 class="section-title">READY TO<br><span style="color:var(--red)">DRIVE?</span></h2>
+    <p class="section-subtitle" style="font-size:17px;">Starting from just Rs. 5,500/day — the road is waiting.</p>
+    <div class="cta-actions">
+      <a href="cars.html" class="btn-primary">Browse Cars</a>
+      <a href="contact.html" class="btn-outline">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">DRIVE<span>PK</span></div>
+        <p class="footer-desc">Pakistan's most trusted car rental service. Premium vehicles, transparent pricing, and 24/7 support across 5 major cities.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Quick Links</div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="cars.html">Our Cars</a>
+          <a href="booking.html">Book Now</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Car Types</div>
+        <div class="footer-links">
+          <a href="cars.html?type=sedan">Sedans</a>
+          <a href="cars.html?type=suv">SUVs</a>
+          <a href="cars.html?type=hatchback">Hatchbacks</a>
+          <a href="cars.html?type=luxury">Luxury</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Contact</div>
+        <div class="footer-links">
+          <a href="tel:+923001234567">+92 300 1234567</a>
+          <a href="mailto:info@drivepk.com">info@drivepk.com</a>
+          <a href="#">Lahore, Pakistan</a>
+          <a href="#">Mon–Sun, 8AM–10PM</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 DrivePK. All rights reserved.</span>
+      <span>Made with ❤️ in Pakistan</span>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" aria-label="Back to top">↑</button>
+
+<script src="js/main.js"></script>
+</body>
+</html>

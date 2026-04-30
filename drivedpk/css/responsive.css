@@ -1,0 +1,72 @@
+@media (max-width: 1024px) {
+  .cars-grid { grid-template-columns: repeat(2, 1fr); }
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .booking-layout { grid-template-columns: 1fr; }
+  .price-summary { position: static; }
+  .car-detail-layout { grid-template-columns: 1fr; }
+  .booking-sidebar { position: static; }
+  .contact-layout { grid-template-columns: 1fr; }
+  .cars-page-grid { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .search-bar { grid-template-columns: 1fr 1fr; }
+  .search-btn { padding: 18px 20px; }
+  .dashboard-layout { grid-template-columns: 1fr; }
+  .sidebar-nav {
+    position: static;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 12px 16px;
+  }
+  .sidebar-nav a { padding: 8px 16px; font-size: 13px; }
+}
+
+@media (max-width: 768px) {
+  .section-title { font-size: 36px; }
+  .hero h1 { font-size: 60px; }
+  .nav-links { display: none; }
+  .nav-actions .btn-outline { display: none; }
+  .hamburger { display: flex; }
+  .cars-grid { grid-template-columns: 1fr; }
+  .features-grid { grid-template-columns: 1fr; }
+  .steps-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .steps-grid::before { display: none; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 24px; flex-wrap: wrap; }
+  .stat-number { font-size: 32px; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  .search-bar { grid-template-columns: 1fr; }
+  .search-field { border-right: none; border-bottom: 1px solid var(--border); }
+  .search-btn { padding: 18px; }
+  .form-row { grid-template-columns: 1fr; }
+  .car-detail-specs { grid-template-columns: repeat(2, 1fr); }
+  .page-hero h1 { font-size: 42px; }
+  .cta-section .section-title { font-size: 42px; }
+  .cta-actions { flex-direction: column; align-items: center; }
+  .hero-actions { flex-direction: column; }
+  .auth-card { padding: 32px 24px; }
+  .dashboard-main { padding: 24px 16px; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .contact-info { padding: 32px 24px; }
+  .contact-form-area { padding: 32px 24px; }
+  .booking-card { padding: 24px; }
+  .role-selector { grid-template-columns: 1fr; }
+  .modal-panel { padding: 24px; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 48px; }
+  .section-title { font-size: 30px; }
+  .steps-grid { grid-template-columns: 1fr; }
+  .car-thumbs { grid-template-columns: repeat(3, 1fr); }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .container { padding: 0 16px; }
+  .car-detail-specs { grid-template-columns: repeat(3, 1fr); }
+  .scroll-top { bottom: 16px; right: 16px; }
+}
